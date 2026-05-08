@@ -9,7 +9,7 @@ change.
 
 ## Current Goal
 
-- Feature 02: Editor base chrome (Navbar and Project Sidebar)
+- Feature 04: Project dialogs and editor home
 
 ## Completed
 
@@ -22,16 +22,31 @@ change.
   - `globals.css` updated with Ghost AI dark-only CSS custom property tokens mapped via `@theme inline`
   - `html` element gets `dark` class for shadcn dark: variant support
   - All components import without errors; no default light styling appears
+- **Feature 02: Editor base chrome** ✓
+  - Navbar and Project Sidebar implemented
+- **Feature 03: Authentication (Clerk)** ✓
+  - `ClerkProvider` added with `@clerk/ui/themes` `dark` theme
+  - Custom sign-in/sign-up pages using existing CSS variables
+  - `proxy.ts` setup for route protection
+  - Root route (`/`) redirect logic implemented
+  - `UserButton` added to EditorNavbar
+- **Feature 04: Project dialogs and editor home** ✓
+  - Editor home screen with centered heading, description, and "New Project" button
+  - Create Project dialog with live slug preview
+  - Rename Project dialog with auto-focus and Enter key submission
+  - Delete Project dialog with destructive confirmation
+  - Sidebar project list with mock data
+  - Sidebar actions (rename, delete) for owned projects only
+  - Mobile backdrop scrim to close sidebar
+  - useProjectDialog hook for dialog and form state management
+  - DropdownMenu component installed and integrated
+  - All dialogs wired to editor page and sidebar actions
 
 ## In Progress
 
-- Feature 02: Editor base chrome (Navbar and Project Sidebar)
+- None
 
 ## Next Up
-
-- Feature 03: Authentication (Clerk) and route protection
-
-## Open Questions
 
 - None at this time.
 
