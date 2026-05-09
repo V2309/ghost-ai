@@ -12,9 +12,19 @@ interface EditorLayoutProps {
   children: React.ReactNode;
   ownedProjects: any[];
   sharedProjects: any[];
+  currentRoomId?: string;
+  projectName?: string;
+  rightActions?: React.ReactNode;
 }
 
-export function EditorLayout({ children, ownedProjects, sharedProjects }: EditorLayoutProps) {
+export function EditorLayout({ 
+  children, 
+  ownedProjects, 
+  sharedProjects,
+  currentRoomId,
+  projectName,
+  rightActions,
+}: EditorLayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const actions = useProjectActions();
 
@@ -23,6 +33,8 @@ export function EditorLayout({ children, ownedProjects, sharedProjects }: Editor
       <EditorNavbar
         isSidebarOpen={isSidebarOpen}
         onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+        projectName={projectName}
+        rightActions={rightActions}
       />
       
       <div className="flex flex-1 pt-14">
@@ -34,6 +46,7 @@ export function EditorLayout({ children, ownedProjects, sharedProjects }: Editor
           onDeleteProject={actions.openDeleteDialog}
           ownedProjects={ownedProjects}
           sharedProjects={sharedProjects}
+          currentRoomId={currentRoomId}
         />
         
         <main className="flex-1 relative z-0 flex flex-col">

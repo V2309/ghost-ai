@@ -9,7 +9,7 @@ change.
 
 ## Current Goal
 
-- Feature 07: Wire Editor Home
+- None at this time.
 
 ## Completed
 
@@ -61,6 +61,23 @@ change.
   - Hook exposed via Context Provider from layout
   - Real room ID generated on create and router navigated to the new workspace
   - Router properly refreshed or redirected after mutations
+- **Feature 08: Editor Workspace Shell** ✓
+  - Created `lib/project-access.ts` with helpers `getCurrentIdentity` and `checkProjectAccess`.
+  - Created `components/editor/access-denied.tsx` with a centered layout, lock icon, and return link.
+  - Built `/editor/[roomId]/page.tsx` server component with server-side access checks using Clerk and Prisma.
+  - Redirected unauthenticated users to `/sign-in` and unauthorized users to `<AccessDenied />`.
+  - Updated `EditorNavbar`, `EditorLayout`, and `ProjectSidebar` to accept `projectName`, `currentRoomId`, and `rightActions` for proper layout rendering in a workspace context.
+  - Implemented canvas area placeholder with dark background.
+  - Implemented AI assistant right sidebar placeholder.
+- **Feature 09: Share Dialog** ✓
+  - Share button added to editor navbar
+  - Share Dialog implemented with link copying and collaborator list
+  - Clerk data enrichment for names and avatars
+  - API routes for listing, inviting, and removing collaborators
+  - Server-side ownership enforcement for invitations and removals
+  - Read-only access for collaborators in the dialog
+  - `Avatar` component installed via shadcn CLI
+  - `npm run build` passes with clean TypeScript output
 
 ## In Progress
 

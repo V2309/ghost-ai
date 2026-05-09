@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 interface ProjectSidebarProps {
   isOpen: boolean;
@@ -20,6 +21,7 @@ interface ProjectSidebarProps {
   onDeleteProject: (id: string, name: string) => void;
   ownedProjects: any[];
   sharedProjects: any[];
+  currentRoomId?: string;
 }
 
 export function ProjectSidebar({
@@ -30,6 +32,7 @@ export function ProjectSidebar({
   onDeleteProject,
   ownedProjects,
   sharedProjects,
+  currentRoomId,
 }: ProjectSidebarProps) {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
@@ -42,8 +45,17 @@ export function ProjectSidebar({
     name: string;
     isOwner: boolean;
   }) => (
-    <div className="flex items-center justify-between group px-2 py-2 rounded-md hover:bg-muted transition-colors">
-      <span className="text-sm text-foreground truncate">{name}</span>
+    <div className={cn(
+      "flex items-center justify-between group px-2 py-2 rounded-md hover:bg-muted transition-colors",
+      currentRoomId === id && "bg-muted font-medium"
+    )}>
+      <Link 
+        href={`/editor/${id}`} 
+        className="flex-1 text-sm text-foreground truncate min-w-0 pr-2" 
+        onClick={onClose}
+      >
+        {name}
+      </Link>
       {isOwner && (
         <DropdownMenu open={activeMenu === id} onOpenChange={(open) => setActiveMenu(open ? id : null)}>
           <DropdownMenuTrigger asChild>
