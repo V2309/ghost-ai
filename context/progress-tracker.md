@@ -9,7 +9,7 @@ change.
 
 ## Current Goal
 
-- Feature 04: Project dialogs and editor home
+- Feature 05: Prisma data models and client
 
 ## Completed
 
@@ -41,6 +41,14 @@ change.
   - useProjectDialog hook for dialog and form state management
   - DropdownMenu component installed and integrated
   - All dialogs wired to editor page and sidebar actions
+- **Feature 05: Prisma data models and client** ✓
+  - `prisma/models/project.prisma` created with `Project` and `ProjectCollaborator` models
+  - `Project`: ownerId (Clerk), name, optional description, `ProjectStatus` enum (DRAFT/ARCHIVED), `canvasJsonPath`, timestamps, indexes on ownerId and createdAt
+  - `ProjectCollaborator`: project relation with cascade delete, email, createdAt, unique on project/email, indexes on email and project/date
+  - `lib/prisma.ts` singleton with hot-reload caching on `global`; branches on `DATABASE_URL` — Accelerate path (`prisma+postgres://`) uses `accelerateUrl` + `withAccelerate()`, direct path uses `@prisma/adapter-pg`
+  - Migration `20260509082538_init_projects` applied successfully
+  - `@prisma/client`, `@prisma/adapter-pg`, `pg`, `@prisma/extension-accelerate` installed
+  - `npm run build` passes (TypeScript clean, all routes compile)
 
 ## In Progress
 

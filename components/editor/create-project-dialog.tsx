@@ -41,11 +41,13 @@ export function CreateProjectDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 py-4">
+        <div className="space-y-2 py-4">
           <div className="space-y-2">
-            <label htmlFor="project-name" className="text-sm font-medium">
+           <div className="">
+             <label htmlFor="project-name" className="text-sm font-medium ">
               Project name
             </label>
+           </div>
             <Input
               id="project-name"
               placeholder="e.g., My Design System"
