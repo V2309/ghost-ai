@@ -103,8 +103,8 @@ export function ProjectSidebar({
 
       <div
         className={cn(
-          "fixed top-14 left-0 bottom-0 w-80 bg-background border-r border-border z-50 transform transition-transform duration-300 ease-in-out flex flex-col shadow-2xl",
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          "fixed top-14 left-0 bottom-0 w-80 bg-background border-r border-border z-50 transform transition-all duration-300 ease-in-out flex flex-col",
+          isOpen ? "translate-x-0 shadow-2xl visible" : "-translate-x-full shadow-none invisible"
         )}
       >
         <div className="flex items-center justify-between p-4 border-b border-border">

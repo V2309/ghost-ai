@@ -9,11 +9,17 @@ change.
 
 ## Current Goal
 
-- None at this time.
-
-## Completed
+- Awaiting next feature specification.
 
 - Next.js 16 boilerplate cleaned up (globals.css stripped to Tailwind import, minimal page.tsx).
+- **Feature 10: Liveblocks Setup** ✓
+  - Configured `liveblocks.config.ts` with Presence and UserMeta types
+  - Implemented cached Liveblocks node client in `lib/liveblocks-server.ts`
+  - Created deterministic color mapping helper in `lib/colors.ts`
+  - Implemented `POST /api/liveblocks-auth` with Clerk auth and project access verification
+  - Auto-creation of Liveblocks rooms with private default access
+  - Updated `getCurrentIdentity` to return full user profile for session metadata
+  - Verified `npm run build` passes
 - **Feature 01: Design System** ✓
   - shadcn/ui installed and configured (Nova preset, Radix, Tailwind v4)
   - Components added: Button, Input, Tabs, Textarea, Card, Dialog, ScrollArea → `components/ui/`
@@ -78,14 +84,75 @@ change.
   - Read-only access for collaborators in the dialog
   - `Avatar` component installed via shadcn CLI
   - `npm run build` passes with clean TypeScript output
+- **Feature 11: Base Canvas** ✓
+  - Created shared canvas types in `types/canvas.ts`
+  - Implemented `CanvasWrapper` with `LiveblocksProvider`, `RoomProvider`, and `ErrorBoundary`
+  - Built collaborative `Canvas` component using `@liveblocks/react-flow` and `@xyflow/react`
+  - Configured React Flow with `ConnectionMode.Loose`, `fitView`, `MiniMap`, and dot-pattern background
+  - Integrated `CanvasWrapper` and `Canvas` into the workspace page shell
+  - Verified `npm run build` passes
+
+- **Feature 12: Shape Panel** ✓
+  - Implement bottom shape panel with draggable icons (Rectangle, Diamond, Circle, Pill, Cylinder, Hexagon)
+  - Add drag and drop handling to Canvas with React Flow coordinate conversion
+  - Implemented node creation on drop via `onNodesChange` with unique IDs
+  - Created custom `canvasNode` renderer with handles and selection state
+  - Verified `npm run build` passes
 
 ## In Progress
+- **Feature 13: Node Shape Customization** ✓
+  - Replaced placeholder node renderer with proper CSS/SVG shape rendering
+  - CSS implementation for Rectangle, Pill, and Circle shapes
+  - SVG implementation with non-scaling strokes for Diamond, Hexagon, and Cylinder
+  - Implemented ghost drag preview in `ShapePanel` using `setDragImage`
+  - Integrated with Liveblocks collaborative state for persistent shape properties
+  - Dynamic borders and handles based on selection and hover states
+  - Verified `npm run build` passes
 
-- None
+- **Feature 14: Node Editing** ✓
+  - Added `NodeResizer` to `CanvasNode` with collaborative sync
+  - Implemented inline label editing via double-click
+  - Integrated label updates with Liveblocks mutations (LiveMap access fixed)
+  - Added `nodrag` and `nopan` to prevent canvas interference during editing
+  - Subtle resize handles consistent with dark theme
+  - Verified `npm run build` passes
+
+- **Feature 15: Node Color Toolbar** ✓
+  - Defined `NODE_COLORS` palette in `types/canvas.ts` with 8 predefined pairs
+  - Implemented `NodeColorToolbar` with hover glows and active state styling
+  - Integrated toolbar into `CanvasNode` (only visible on selection, hidden during editing)
+  - Added `updateColors` mutation for collaborative background and text color syncing
+  - Updated node rendering to support dynamic background and text colors across all shapes
+  - Verified `npm run build` passes
+
+- **Feature 16: Edge Behavior** ✓
+  - Added connection handles on all four sides with hover-to-reveal behavior
+  - Implemented `CanvasEdge` with `getSmoothStepPath` for right-angle routing
+  - Added invisible wider interaction path for improved click targets
+  - Built inline label editing using `EdgeLabelRenderer` and path midpoint coordinates
+  - Integrated label updates with Liveblocks mutations for collaborative sync
+  - Configured `defaultEdgeOptions` with closed arrowheads and custom edge type
+  - Verified `npm run build` passes
+
+- **Feature 17: Canvas Ergonomics** ✓
+  - Added pill-shaped control bar for zoom and history
+  - Integrated zoom controls (in, out, fit view) with React Flow
+  - Wired undo/redo buttons to Liveblocks history state
+  - Implemented `useKeyboardShortcuts` hook for global shortcuts
+  - Supported `+`, `-`, `Ctrl+Z`, `Ctrl+Shift+Z`, `Ctrl+Y` shortcuts
+  - Removed MiniMap from canvas
+  - Verified `npm run build` passes
 
 ## Next Up
 
 - None at this time.
+
+- **UI Polishing: Canvas & Sidebars** ✓
+  - Fixed floating canvas visual bug (now edge-to-edge)
+  - Implemented floating sidebars that overlap the canvas instead of pushing it
+  - Fixed left sidebar "peeking" when closed
+  - Resolved drag and drop pipeline issues with useMutation and proper event propagation
+  - Updated Liveblocks storage types for TypeScript safety
 
 ## Architecture Decisions
 

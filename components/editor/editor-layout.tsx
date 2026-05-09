@@ -37,7 +37,7 @@ export function EditorLayout({
         rightActions={rightActions}
       />
       
-      <div className="flex flex-1 pt-14">
+      <div className="flex-1 pt-14 relative overflow-hidden h-screen">
         <ProjectSidebar
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
@@ -49,7 +49,7 @@ export function EditorLayout({
           currentRoomId={currentRoomId}
         />
         
-        <main className="flex-1 relative z-0 flex flex-col">
+        <main className="absolute inset-0 top-14 z-0 flex flex-col overflow-hidden">
           {children}
         </main>
       </div>

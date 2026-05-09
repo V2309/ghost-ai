@@ -14,6 +14,8 @@ export async function getCurrentIdentity() {
   return {
     userId,
     email: email.trim().toLowerCase(),
+    name: `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() || email,
+    avatar: user.imageUrl,
   };
 }
 
