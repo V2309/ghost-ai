@@ -1,86 +1,42 @@
-"use client";
+import { NewProjectButton } from "@/components/editor/new-project-button";
+import { EditorLayout } from "@/components/editor/editor-layout";
+import { getProjectsForUser } from "@/lib/projects";
+import { ProjectActionsProvider } from "@/hooks/use-project-actions";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import { useProjectDialog } from "@/hooks/useProjectDialog";
-import { CreateProjectDialog } from "@/components/editor/create-project-dialog";
-import { RenameProjectDialog } from "@/components/editor/rename-project-dialog";
-import { DeleteProjectDialog } from "@/components/editor/delete-project-dialog";
+export default async function EditorPage() {
+  const { userId } = await auth();
+  
+  let ownedProjects: any[] = [];
+  let sharedProjects: any[] = [];
 
-export default function EditorPage() {
-  const dialog = useProjectDialog();
+  if (userId) {
+    const client = await clerkClient();
+    const user = await client.users.getUser(userId);
+    const email = user.emailAddresses[0]?.emailAddress;
 
-  const handleCreateProject = () => {
-    // Mock: just close the dialog after a brief delay
-    dialog.setLoading(true);
-    setTimeout(() => {
-      dialog.setLoading(false);
-      dialog.closeDialog();
-    }, 500);
-  };
-
-  const handleRenameProject = () => {
-    // Mock: just close the dialog after a brief delay
-    dialog.setLoading(true);
-    setTimeout(() => {
-      dialog.setLoading(false);
-      dialog.closeDialog();
-    }, 500);
-  };
-
-  const handleDeleteProject = () => {
-    // Mock: just close the dialog after a brief delay
-    dialog.setLoading(true);
-    setTimeout(() => {
-      dialog.setLoading(false);
-      dialog.closeDialog();
-    }, 500);
-  };
+    if (email) {
+      const projects = await getProjectsForUser(userId, email);
+      ownedProjects = projects.owned;
+      sharedProjects = projects.shared;
+    }
+  }
 
   return (
-    <>
-      <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4">
-        <div className="text-center max-w-md">
-          <h1 className="text-4xl font-bold text-foreground mb-2">
-            Create a project or open an existing one
-          </h1>
-          <p className="text-muted-foreground mb-6">
-            Start a new architecture workspace, or choose a project from the sidebar.
-          </p>
-          <Button size="lg" className="gap-2" onClick={dialog.openCreateDialog}>
-            <Plus className="w-5 h-5" />
-            New Project
-          </Button>
+    <ProjectActionsProvider>
+      <EditorLayout ownedProjects={ownedProjects} sharedProjects={sharedProjects}>
+        <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 h-full min-h-[calc(100vh-3.5rem)]">
+          <div className="text-center max-w-md">
+            <h1 className="text-4xl font-bold text-foreground mb-2">
+              Create a project or open an existing one
+            </h1>
+            <p className="text-muted-foreground mb-6">
+              Start a new architecture workspace, or choose a project from the sidebar.
+            </p>
+            <NewProjectButton />
+          </div>
         </div>
-      </div>
-
-      {/* Dialogs */}
-      <CreateProjectDialog
-        open={dialog.open === "create"}
-        formValue={dialog.formValue}
-        loading={dialog.loading}
-        onFormChange={dialog.setFormValue}
-        onClose={dialog.closeDialog}
-        onSubmit={handleCreateProject}
-      />
-
-      <RenameProjectDialog
-        open={dialog.open === "rename"}
-        projectName={dialog.projectName}
-        formValue={dialog.formValue}
-        loading={dialog.loading}
-        onFormChange={dialog.setFormValue}
-        onClose={dialog.closeDialog}
-        onSubmit={handleRenameProject}
-      />
-
-      <DeleteProjectDialog
-        open={dialog.open === "delete"}
-        projectName={dialog.projectName}
-        loading={dialog.loading}
-        onClose={dialog.closeDialog}
-        onSubmit={handleDeleteProject}
-      />
-    </>
+      </EditorLayout>
+    </ProjectActionsProvider>
   );
 }

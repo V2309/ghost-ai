@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/ui/themes";
 import "./globals.css";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

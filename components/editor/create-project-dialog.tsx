@@ -10,7 +10,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { generateSlug } from "@/lib/mock-projects";
+import { generateSlug } from "@/hooks/use-project-actions";
 
 interface CreateProjectDialogProps {
   open: boolean;

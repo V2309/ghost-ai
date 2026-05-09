@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { X, Plus, MoreVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { MOCK_PROJECTS } from "@/lib/mock-projects";
 import { useState } from "react";
 import {
   DropdownMenu,
@@ -19,6 +18,8 @@ interface ProjectSidebarProps {
   onCreateProject: () => void;
   onRenameProject: (id: string, name: string) => void;
   onDeleteProject: (id: string, name: string) => void;
+  ownedProjects: any[];
+  sharedProjects: any[];
 }
 
 export function ProjectSidebar({
@@ -27,11 +28,10 @@ export function ProjectSidebar({
   onCreateProject,
   onRenameProject,
   onDeleteProject,
+  ownedProjects,
+  sharedProjects,
 }: ProjectSidebarProps) {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
-
-  const ownedProjects = MOCK_PROJECTS.filter((p) => p.isOwner);
-  const sharedProjects = MOCK_PROJECTS.filter((p) => !p.isOwner);
 
   const ProjectItem = ({
     id,
@@ -120,7 +120,7 @@ export function ProjectSidebar({
                       key={project.id}
                       id={project.id}
                       name={project.name}
-                      isOwner={project.isOwner}
+                      isOwner={true}
                     />
                   ))}
                 </div>
@@ -143,7 +143,7 @@ export function ProjectSidebar({
                       key={project.id}
                       id={project.id}
                       name={project.name}
-                      isOwner={project.isOwner}
+                      isOwner={false}
                     />
                   ))}
                 </div>

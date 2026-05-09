@@ -9,7 +9,7 @@ change.
 
 ## Current Goal
 
-- Feature 05: Prisma data models and client
+- Feature 07: Wire Editor Home
 
 ## Completed
 
@@ -49,6 +49,18 @@ change.
   - Migration `20260509082538_init_projects` applied successfully
   - `@prisma/client`, `@prisma/adapter-pg`, `pg`, `@prisma/extension-accelerate` installed
   - `npm run build` passes (TypeScript clean, all routes compile)
+- **Feature 06: Project APIs** ✓
+  - REST endpoints created for GET (list), POST (create), PATCH (rename), DELETE (delete)
+  - Owner checks enforced using Clerk `userId`
+  - 401 and 403 authorization and authentication checks implemented
+  - Build checks passed
+- **Feature 07: Wire Editor Home** ✓
+  - Editor home page converted to a server component
+  - Sidebar connected to real server-side data via `getProjectsForUser`
+  - `use-project-actions` hook created to handle API mutations (create, rename, delete)
+  - Hook exposed via Context Provider from layout
+  - Real room ID generated on create and router navigated to the new workspace
+  - Router properly refreshed or redirected after mutations
 
 ## In Progress
 
